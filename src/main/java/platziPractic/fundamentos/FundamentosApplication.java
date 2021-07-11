@@ -1,5 +1,7 @@
 package platziPractic.fundamentos;
 
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,6 +14,8 @@ import platziPractic.fundamentos.pojo.UserPojo;
 
 @SpringBootApplication
 public class FundamentosApplication implements CommandLineRunner {
+
+	private final Log LOGGER = LogFactory.getLog(FundamentosApplication.class);
 
 	private ComponentDependency componentDependency;
 	private MyBean miBean;
@@ -38,5 +42,13 @@ public class FundamentosApplication implements CommandLineRunner {
 		myBeanWithDependency.printWhitDependecy();
 		System.out.println(myBeanWithProperties.function());
 		System.out.println(userPojo.getMail() + "-" + userPojo.getPassword() + "+" + userPojo.getAge());
+		try {
+			int value = 10/0;
+			LOGGER.debug("MI valor :" + value);
+		} catch ( Exception e){
+			LOGGER.error("Este es un error al dividir por cero " + e.getMessage());
+
+		}
+
 	}
 }
